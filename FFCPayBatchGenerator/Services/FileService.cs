@@ -5,7 +5,7 @@ using System.Reflection;
 namespace FFCPayBatchGenerator.Services;
 public class FileService : IFileService
 {
-    string workingFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Files");
+    string workingFolder = Path.Combine(AppContext.BaseDirectory, "Files");
 
     public void Generate(string fileName, string content)
     {

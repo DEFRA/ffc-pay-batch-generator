@@ -15,7 +15,9 @@ class Program
         Console.WriteLine("Development Team {0}", DateTime.Now.Year);
         Console.ResetColor();
 
-        while (true)
+        bool gatheringParams = true;
+
+        while (gatheringParams)
         {
             Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS or SFI)");
             string batchType = Console.ReadLine();
@@ -34,9 +36,9 @@ class Program
             CaptureFRN();
             CaptureDeliveryBody();
             CaptureSchemeYear();
-
-            CreateBatchFile(request);
+            gatheringParams = false;
         }
+        CreateBatchFile(request);
     }
 
     private static void CaptureSchemeYear()
