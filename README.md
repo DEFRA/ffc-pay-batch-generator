@@ -4,9 +4,11 @@ Generate SITI Agri batch files to support testing of FFC payment services
 
 ## Prerequisites
 Either:
-- .NET 6 SDK to build
-- .NET 6 Runtime to run
+
+- .NET 6 SDK
+
 or:
+
 - Docker
 - Docker Compose
   
@@ -16,7 +18,7 @@ or:
 - Financial Discipline Mechanism Reimbursement (FDMR)
 - Sustainable Farming Incentive (SFI)
 
-## Using the application
+## Running the application
 ### .NET SDK
 To run the application first build the application using .NET 6 SDK.
 The application can then be run as a console application.
