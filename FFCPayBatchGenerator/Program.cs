@@ -28,7 +28,7 @@ static void Main(string[] args)
     {
         Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS or SFI)");
         string batchType = Console.ReadLine();
-        while (!batchTypes.Contains(batchType.ToUpper()))
+        while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
         {
             LogError("Invalid batch type");
             batchType = Console.ReadLine();
