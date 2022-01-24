@@ -12,7 +12,6 @@ show_help() {
 
     Options:
       -b, --build   build container before running
-      -w, --watch   watch mode
       -h, --help    display this help text
     "
 }
@@ -39,15 +38,13 @@ while :; do
 done
 
 compose() {
-  if [ "${watch}" = "true" ]; then
-    docker-compose $@
-  else
-    docker-compose -f docker-compose.yaml $@
-  fi
+  docker-compose -f docker-compose.yaml $@
 }
 
 (
   cd "${projectRoot}"
+
+  mkdir -p ./Files
 
   if [ "${build}" = "true" ]; then
     compose build

@@ -43,16 +43,17 @@ Generated batch files will be written to a `Files` directory created in the loca
 ### Docker
 To avoid the need for .NET installation this application can also be run using Docker Compose.
 
-The container will output files to a local `Files` folder.  This folder must be created first with `mkdir ./Files`.
 
 A convenience `./scripts/start` script is provided for quick use.
+
+The container will output files to a local `Files` folder.  This folder will be created by the script.
 
 This script accepts the following arguments:
 
 - `--build` | `-b` - build container before running.  The container must be built at least once.
 - `--help` | `-h` - display help for running script
 
-The container can also be built with `docker-compose -f docker-compose.yaml build`.
+The container can also be built with `docker-compose build`.
 
 ## Using the console
 The console will ask a series of question to determine the type of batch to generate and it's content.
