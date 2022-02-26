@@ -16,6 +16,8 @@ public class Request
     public long FRN { get; set; } = 1000000001;
     public string DeliveryBody { get; set; }
     public int SchemeYear { get; set; }
+    public bool CreateChecksum { get; set; } = false;
+    public bool PendingRename { get; set; } = false;
     public Request(string batchType)
     {
         BatchType = batchType.ToUpper();

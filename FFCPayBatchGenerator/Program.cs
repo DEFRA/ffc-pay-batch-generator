@@ -3,192 +3,218 @@ using FFCPayBatchGenerator.Services;
 using System;
 using System.Collections.Generic;
 
-namespace FFCPayBatchGenerator;
-class Program
+namespace FFCPayBatchGenerator
 {
-    private static Request? request;
-
-    private static List<string> batchTypes = new List<string> {
-        "BPS",
-        "CS",
-        "FDMR",
-        "SFI"
-    };
-
-    static void Main(string[] args)
+    class Program
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Payment Batch Generator");
-        Console.WriteLine("Future Farming and Countryside programme {0}", DateTime.Now.Year);
-        Console.ResetColor();
+        private static Request? request;
 
-        bool gatheringParams = true;
-
-        while (gatheringParams)
+        private readonly static List<string> batchTypes = new()
         {
-            Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS or SFI)");
-            string batchType = Console.ReadLine();
-            while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
+            "BPS",
+            "CS",
+            "FDMR",
+            "SFI"
+        };
+
+        static void Main()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Payment Batch Generator");
+            Console.WriteLine("Future Farming and Countryside programme {0}", DateTime.Now.Year);
+            Console.ResetColor();
+
+            bool gatheringParams = true;
+
+            while (gatheringParams)
             {
-                LogError("Invalid batch type");
-                batchType = Console.ReadLine();
+                Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS or SFI)");
+                string batchType = Console.ReadLine() ?? string.Empty;
+                while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
+                {
+                    LogError("Invalid batch type");
+                    batchType = Console.ReadLine() ?? string.Empty;
+                }
+
+                request = new(batchType);
+                CaptureSequence();
+                CaptureBatchSize();
+                CaptureInvoiceValue();
+                CaptureRequestNumber();
+                CaptureInvoiceNumber();
+                CaptureFRN();
+                CaptureDeliveryBody();
+                CaptureSchemeYear();
+                CaptureChecksum();
+                CapturePendingRename();
+
+                CreateBatchFile(request);
+                gatheringParams = false;
             }
-
-            request = new(batchType);
-            CaptureSequence();
-            CaptureBatchSize();
-            CaptureInvoiceValue();
-            CaptureRequestNumber();
-            CaptureInvoiceNumber();
-            CaptureFRN();
-            CaptureDeliveryBody();
-            CaptureSchemeYear();
-
-            CreateBatchFile(request);
-            gatheringParams = false;
         }
-    }
 
-    private static void CaptureSchemeYear()
-    {
-        Console.WriteLine("Enter scheme year or leave blank for default (current year). 2015 - 2099");
-        string SchemeYear = Console.ReadLine();
-        int SchemeYearValue = 0;
-
-        if (!string.IsNullOrEmpty(SchemeYear))
+        private static void CaptureSchemeYear()
         {
-            while (!int.TryParse(SchemeYear, out SchemeYearValue) || (SchemeYearValue < 2015 || SchemeYearValue > 2099))
+            Console.WriteLine("Enter scheme year or leave blank for default (current year). 2015 - 2099");
+            string schemeYear = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(schemeYear))
             {
-                LogError("Invalid scheme year");
-                SchemeYear = Console.ReadLine();
+                int schemeYearValue;
+                while (!int.TryParse(schemeYear, out schemeYearValue) || schemeYearValue < 2015 || schemeYearValue > 2099)
+                {
+                    LogError("Invalid scheme year");
+                    schemeYear = Console.ReadLine() ?? string.Empty;
+                }
+                request.SchemeYear = schemeYearValue;
             }
-            request.SchemeYear = SchemeYearValue;
         }
-    }
 
-    private static void CaptureDeliveryBody()
-    {
-        Console.WriteLine("Enter Delivery Body or leave blank for default (RP00 or NE00)");
-        string deliveryBody = Console.ReadLine();
-        if (!string.IsNullOrEmpty(deliveryBody))
+        private static void CaptureDeliveryBody()
         {
-            request.DeliveryBody = deliveryBody;
-        }
-    }
-
-    private static void CaptureFRN()
-    {
-        Console.WriteLine("Enter FRN for first invoice in batch or leave blank for default (1000000001). Maximum 9999999999");
-        string frn = Console.ReadLine();
-        long frnValue = 0;
-
-        if (!string.IsNullOrEmpty(frn))
-        {
-            while (!long.TryParse(frn, out frnValue) || (frnValue <= 0 || frnValue > 9999999999))
+            Console.WriteLine("Enter Delivery Body or leave blank for default (RP00 or NE00)");
+            string deliveryBody = Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrEmpty(deliveryBody))
             {
-                LogError("Invalid FRN");
-                frn = Console.ReadLine();
+                request.DeliveryBody = deliveryBody;
             }
-            request.FRN = frnValue;
         }
-    }
 
-    private static void CaptureInvoiceNumber()
-    {
-        Console.WriteLine("Enter invoice number for first invoice in batch or leave blank for default (1). Maximum 9999999");
-        string invoiceNumber = Console.ReadLine();
-        int invoiceNumberValue = 0;
-
-        if (!string.IsNullOrEmpty(invoiceNumber))
+        private static void CaptureFRN()
         {
-            while (!int.TryParse(invoiceNumber, out invoiceNumberValue) || (invoiceNumberValue <= 0 || invoiceNumberValue > 9999999))
+            Console.WriteLine("Enter FRN for first invoice in batch or leave blank for default (1000000001). Maximum 9999999999");
+            string frn = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(frn))
             {
-                LogError("Invalid invoice number");
-                invoiceNumber = Console.ReadLine();
+                long frnValue;
+                while (!long.TryParse(frn, out frnValue) || frnValue <= 0 || frnValue > 9999999999)
+                {
+                    LogError("Invalid FRN");
+                    frn = Console.ReadLine() ?? string.Empty;
+                }
+                request.FRN = frnValue;
             }
-            request.InvoiceNumber = invoiceNumberValue;
         }
-    }
 
-    private static void CaptureRequestNumber()
-    {
-        Console.WriteLine("Enter request invoice number or leave blank for default (1)");
-        string requestNumber = Console.ReadLine();
-        int requestNumberValue = 0;
-
-        if (!string.IsNullOrEmpty(requestNumber))
+        private static void CaptureInvoiceNumber()
         {
-            while (!int.TryParse(requestNumber, out requestNumberValue) || requestNumberValue <= 0)
+            Console.WriteLine("Enter invoice number for first invoice in batch or leave blank for default (1). Maximum 9999999");
+            string invoiceNumber = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(invoiceNumber))
             {
-                LogError("Invalid request invoice number");
-                requestNumber = Console.ReadLine();
+                int invoiceNumberValue;
+                while (!int.TryParse(invoiceNumber, out invoiceNumberValue) || invoiceNumberValue <= 0 || invoiceNumberValue > 9999999)
+                {
+                    LogError("Invalid invoice number");
+                    invoiceNumber = Console.ReadLine() ?? string.Empty;
+                }
+                request.InvoiceNumber = invoiceNumberValue;
             }
-            request.RequestNumber = requestNumberValue;
         }
-    }
 
-    private static void CaptureInvoiceValue()
-    {
-        Console.WriteLine("Enter invoice value or leave blank for default (100)");
-        string invoiceValue = Console.ReadLine();
-        decimal invoiceValueValue = 0;
-
-        if (!string.IsNullOrEmpty(invoiceValue))
+        private static void CaptureRequestNumber()
         {
-            while (!decimal.TryParse(invoiceValue, out invoiceValueValue))
+            Console.WriteLine("Enter request invoice number or leave blank for default (1)");
+            string requestNumber = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(requestNumber))
             {
-                LogError("Invalid invoice value");
-                invoiceValue = Console.ReadLine().ToUpper();
+                int requestNumberValue;
+                while (!int.TryParse(requestNumber, out requestNumberValue) || requestNumberValue <= 0)
+                {
+                    LogError("Invalid request invoice number");
+                    requestNumber = Console.ReadLine() ?? string.Empty;
+                }
+                request.RequestNumber = requestNumberValue;
             }
-            request.InvoiceValue = invoiceValueValue;
         }
-    }
 
-    private static void CaptureBatchSize()
-    {
-        Console.WriteLine("Enter batch size or leave blank for default (1).  Maximum 10000");
-        string batchSize = Console.ReadLine();
-        int batchSizeValue = 0;
-
-        if (!string.IsNullOrEmpty(batchSize))
+        private static void CaptureInvoiceValue()
         {
-            while (!int.TryParse(batchSize, out batchSizeValue) || (batchSizeValue <= 0 || batchSizeValue > 10000))
+            Console.WriteLine("Enter invoice value or leave blank for default (100)");
+            string invoiceValue = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(invoiceValue))
             {
-                LogError("Invalid batch size");
-                batchSize = Console.ReadLine();
+                decimal invoiceValueValue;
+                while (!decimal.TryParse(invoiceValue, out invoiceValueValue))
+                {
+                    LogError("Invalid invoice value");
+                    invoiceValue = Console.ReadLine() ?? string.Empty;
+                }
+                request.InvoiceValue = invoiceValueValue;
             }
-            request.BatchSize = batchSizeValue;
         }
-    }
 
-    private static void CaptureSequence()
-    {
-        Console.WriteLine("Enter sequence for batch file or leave blank for default (1).  Maximum 9999");
-        string sequence = Console.ReadLine();
-        int sequenceValue = 0;
-
-        if (!string.IsNullOrEmpty(sequence))
+        private static void CaptureBatchSize()
         {
-            while (!int.TryParse(sequence, out sequenceValue) || (sequenceValue <= 0 || sequenceValue > 9999))
+            Console.WriteLine("Enter batch size or leave blank for default (1).  Maximum 10000");
+            string batchSize = Console.ReadLine() ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(batchSize))
             {
-                LogError("Invalid sequence");
-                sequence = Console.ReadLine();
+                int batchSizeValue;
+                while (!int.TryParse(batchSize, out batchSizeValue) || batchSizeValue <= 0 || batchSizeValue > 10000)
+                {
+                    LogError("Invalid batch size");
+                    batchSize = Console.ReadLine() ?? string.Empty;
+                }
+                request.BatchSize = batchSizeValue;
             }
-            request.Sequence = sequenceValue;
         }
-    }
 
-    private static void CreateBatchFile(Request request)
-    {
-        BaseBatchFactory batchFactory = new BatchFactory().Create(request);
-        IFileService fileService = new FileService();
-        fileService.Generate(batchFactory.GetFileName(), batchFactory.GetContent());
-    }
+        private static void CaptureSequence()
+        {
+            Console.WriteLine("Enter sequence for batch file or leave blank for default (1).  Maximum 9999");
+            string sequence = Console.ReadLine() ?? string.Empty;
 
-    private static void LogError(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(string.Format("{0} - please retry", message));
-        Console.ResetColor();
+            if (!string.IsNullOrEmpty(sequence))
+            {
+                int sequenceValue;
+                while (!int.TryParse(sequence, out sequenceValue) || sequenceValue <= 0 || sequenceValue > 9999)
+                {
+                    LogError("Invalid sequence");
+                    sequence = Console.ReadLine() ?? string.Empty;
+                }
+                request.Sequence = sequenceValue;
+            }
+        }
+
+        private static void CaptureChecksum()
+        {
+            Console.WriteLine("Create checksum file or leave blank for default? (no)");
+            string checksum = Console.ReadLine() ?? string.Empty;
+
+            request.CreateChecksum = !string.IsNullOrEmpty(checksum) || checksum.ToUpper() == "YES" || checksum.ToUpper() == "Y" || checksum.ToUpper() == "TRUE";
+        }
+
+        private static void CapturePendingRename()
+        {
+            Console.WriteLine("Create file with pending file name? (no)");
+            string rename = Console.ReadLine() ?? string.Empty;
+
+            request.PendingRename = !string.IsNullOrEmpty(rename) || rename.ToUpper() == "YES" || rename.ToUpper() == "Y" || rename.ToUpper() == "TRUE";
+        }
+
+        private static void CreateBatchFile(Request request)
+        {
+            BaseBatchFactory batchFactory = new BatchFactory().Create(request);
+            IFileService fileService = new FileService();
+            var batchPath = fileService.Generate(batchFactory.GetFileName(), batchFactory.GetContent());
+
+            if (request.CreateChecksum)
+            {
+                fileService.Generate(Checksum.GetFileName(batchPath), Checksum.Generate(batchPath));
+            }
+        }
+
+        private static void LogError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(string.Format("{0} - please retry", message));
+            Console.ResetColor();
+        }
     }
 }

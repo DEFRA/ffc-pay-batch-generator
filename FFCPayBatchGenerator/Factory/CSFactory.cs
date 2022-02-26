@@ -13,7 +13,8 @@ public class CSFactory : BaseBatchFactory
 
     public override string GetFileName()
     {
-        return string.Format("SITICS{0}_AP_{1}.dat",
+        return string.Format("{0}SITICS{1}_AP_{2}.dat",
+            pendingRename ? pendingPrefix : string.Empty,
             sequence.ToString("D4"),
             DateTime.Now.ToString("yyyyMMddHHmmssFFF"));
     }

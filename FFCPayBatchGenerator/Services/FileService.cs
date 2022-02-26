@@ -2,23 +2,28 @@
 using System.IO;
 using System.Reflection;
 
-namespace FFCPayBatchGenerator.Services;
-public class FileService : IFileService
+namespace FFCPayBatchGenerator.Services
 {
-    string workingFolder = Path.Combine(AppContext.BaseDirectory, "Files");
-
-    public void Generate(string fileName, string content)
+    public class FileService : IFileService
     {
-        CreateDirectory();
-        File.WriteAllText(Path.Combine(workingFolder, fileName), content);
+        readonly string workingFolder = Path.Combine(AppContext.BaseDirectory, "Files");
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Batch file successfully generated");
-        Console.ResetColor();
-    }
+        public string Generate(string filename, string content)
+        {
+            CreateDirectory();
+            var filepath = Path.Combine(workingFolder, filename);
+            File.WriteAllText(filepath, content);
 
-    private void CreateDirectory()
-    {
-        Directory.CreateDirectory(workingFolder);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("File successfully generated");
+            Console.ResetColor();
+
+            return filepath;
+        }
+
+        private void CreateDirectory()
+        {
+            Directory.CreateDirectory(workingFolder);
+        }
     }
 }
