@@ -30,11 +30,12 @@ public class FDMRFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^FDMR{0}^{1}^C{2}^{3}^1^{4}^{5}^GBP",
+            sb.AppendLine(string.Format("H^FDMR{0}^{1}^C{2}^{3}^{4}^{5}^{6}^GBP",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D3"),
                 invoiceNumber.ToString("D7"),
                 frn,
+                requestNumber == 1 ? 1 : 2,
                 invoiceValue,
                 deliveryBody));
 

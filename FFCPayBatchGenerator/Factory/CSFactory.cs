@@ -30,10 +30,11 @@ public class CSFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^CS{0}^{1}^A{2}^1^{3}^GBP^{4}^{5}^GBP",
+            sb.AppendLine(string.Format("H^CS{0}^{1}^A{2}^{3}^{4}^GBP^{5}^{6}^GBP",
                 invoiceNumber.ToString("D9"),
                 requestNumber.ToString("D3"),
                 invoiceNumber.ToString("D7"),
+                requestNumber == 1 ? 1 : 2,
                 frn,
                 invoiceValue,
                 deliveryBody));
