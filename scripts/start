@@ -51,6 +51,6 @@ compose() {
   fi
 
   # Run app
-  compose run ${service} ${command}
+  compose run ${service}
 
 )
