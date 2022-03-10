@@ -7,7 +7,7 @@ namespace FFCPayBatchGenerator
 {
     class Program
     {
-        private static Request? request;
+        private static Request request = new("SFI");
 
         private readonly static List<string> batchTypes = new()
         {
