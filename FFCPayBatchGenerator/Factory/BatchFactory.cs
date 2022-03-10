@@ -5,23 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FFCPayBatchGenerator.Factory;
-public class BatchFactory
+namespace FFCPayBatchGenerator.Factory
 {
-    public BaseBatchFactory Create(Request request)
+    public static class BatchFactory
     {
-        switch (request.BatchType)
+        public static BaseBatchFactory Create(Request request)
         {
-            case "BPS":
-                return new BPSFactory(request);
-            case "FDMR":
-                return new FDMRFactory(request);
-            case "CS":
-                return new CSFactory(request);
-            case "SFI":
-                return new SFIFactory(request);
-            default:
-                throw new ArgumentException("Invalid batch type");
+            return request.BatchType switch
+            {
+                "BPS" => new BPSFactory(request),
+                "FDMR" => new FDMRFactory(request),
+                "CS" => new CSFactory(request),
+                "SFI" => new SFIFactory(request),
+                _ => throw new ArgumentException("Invalid batch type")
+            };
         }
     }
 }

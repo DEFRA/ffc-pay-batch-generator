@@ -46,6 +46,7 @@ namespace FFCPayBatchGenerator
                 CaptureDeliveryBody();
                 CaptureSchemeYear();
                 CaptureChecksum();
+                CaptureControlFiles();
                 CapturePendingRename();
 
                 CreateBatchFile(request);
@@ -82,7 +83,7 @@ namespace FFCPayBatchGenerator
 
         private static void CaptureFRN()
         {
-            Console.WriteLine("Enter FRN for first invoice in batch or leave blank for default (1000000001). Maximum 9999999999");
+            Console.WriteLine("Enter FRN for first request in batch or leave blank for default (1000000001). Maximum 9999999999");
             string frn = Console.ReadLine() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(frn))
@@ -116,7 +117,7 @@ namespace FFCPayBatchGenerator
 
         private static void CaptureRequestNumber()
         {
-            Console.WriteLine("Enter request invoice number or leave blank for default (1)");
+            Console.WriteLine("Enter payment request number or leave blank for default (1)");
             string requestNumber = Console.ReadLine() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(requestNumber))
@@ -124,7 +125,7 @@ namespace FFCPayBatchGenerator
                 int requestNumberValue;
                 while (!int.TryParse(requestNumber, out requestNumberValue) || requestNumberValue <= 0)
                 {
-                    LogError("Invalid request invoice number");
+                    LogError("Invalid payment request number");
                     requestNumber = Console.ReadLine() ?? string.Empty;
                 }
                 request.RequestNumber = requestNumberValue;
@@ -133,7 +134,7 @@ namespace FFCPayBatchGenerator
 
         private static void CaptureInvoiceValue()
         {
-            Console.WriteLine("Enter invoice value or leave blank for default (100)");
+            Console.WriteLine("Enter request value or leave blank for default (100)");
             string invoiceValue = Console.ReadLine() ?? string.Empty;
 
             if (!string.IsNullOrEmpty(invoiceValue))
@@ -141,7 +142,7 @@ namespace FFCPayBatchGenerator
                 decimal invoiceValueValue;
                 while (!decimal.TryParse(invoiceValue, out invoiceValueValue))
                 {
-                    LogError("Invalid invoice value");
+                    LogError("Invalid request value");
                     invoiceValue = Console.ReadLine() ?? string.Empty;
                 }
                 request.InvoiceValue = invoiceValueValue;
@@ -190,6 +191,14 @@ namespace FFCPayBatchGenerator
             request.CreateChecksum = !string.IsNullOrEmpty(checksum) || checksum.ToUpper() == "YES" || checksum.ToUpper() == "Y" || checksum.ToUpper() == "TRUE";
         }
 
+        private static void CaptureControlFiles()
+        {
+            Console.WriteLine("Create control files or leave blank for default? (no)");
+            string control = Console.ReadLine() ?? string.Empty;
+
+            request.CreateControl = !string.IsNullOrEmpty(control) || control.ToUpper() == "YES" || control.ToUpper() == "Y" || control.ToUpper() == "TRUE";
+        }
+
         private static void CapturePendingRename()
         {
             Console.WriteLine("Create file with pending file name? (no)");
@@ -200,13 +209,23 @@ namespace FFCPayBatchGenerator
 
         private static void CreateBatchFile(Request request)
         {
-            BaseBatchFactory batchFactory = new BatchFactory().Create(request);
+            BaseBatchFactory batchFactory = BatchFactory.Create(request);
             IFileService fileService = new FileService();
             var batchPath = fileService.Generate(batchFactory.GetFileName(), batchFactory.GetContent());
 
             if (request.CreateChecksum)
             {
                 fileService.Generate(Checksum.GetFileName(batchPath), Checksum.Generate(batchPath));
+            }
+
+            if (request.CreateControl)
+            {
+                fileService.Generate(Control.GetFileName(batchPath), string.Empty);
+
+                if (request.CreateChecksum)
+                {
+                    fileService.Generate(Control.GetFileName(Checksum.GetFileName(batchPath)), string.Empty);
+                }
             }
         }
 

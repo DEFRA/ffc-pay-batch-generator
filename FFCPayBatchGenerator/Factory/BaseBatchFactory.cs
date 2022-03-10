@@ -16,6 +16,7 @@ public abstract class BaseBatchFactory
     protected string deliveryBody;
     protected int schemeYear;
     protected bool createChecksum;
+    protected bool createControl;
     protected bool pendingRename;
     protected string pendingPrefix = "PENDING_";
 
@@ -30,6 +31,7 @@ public abstract class BaseBatchFactory
         deliveryBody = request.DeliveryBody;
         schemeYear = request.SchemeYear;
         createChecksum = request.CreateChecksum;
+        createControl = request.CreateControl;
         pendingRename = request.PendingRename;
     }
 

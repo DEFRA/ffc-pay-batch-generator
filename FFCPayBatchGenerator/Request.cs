@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FFCPayBatchGenerator;
 public class Request
@@ -17,6 +13,7 @@ public class Request
     public string DeliveryBody { get; set; }
     public int SchemeYear { get; set; }
     public bool CreateChecksum { get; set; } = false;
+    public bool CreateControl { get; set; } = false;
     public bool PendingRename { get; set; } = false;
     public Request(string batchType)
     {
