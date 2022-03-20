@@ -43,7 +43,7 @@ public class CSFactory : BaseBatchFactory
                 invoiceNumber.ToString("D9"),
                 invoiceValue,
                 schemeYear,
-                invoiceNumber.ToString("D11"),
+                frn.ToString("D11"),
                 deliveryBody,
                 new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
 

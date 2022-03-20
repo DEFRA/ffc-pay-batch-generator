@@ -43,7 +43,7 @@ public class SFIFactory : BaseBatchFactory
                 invoiceNumber.ToString("D8"),
                 invoiceValue,
                 schemeYear,
-                invoiceNumber.ToString("D12"),
+                frn.ToString("D12"),
                 deliveryBody,
                 new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
 
