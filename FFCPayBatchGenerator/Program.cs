@@ -14,7 +14,7 @@ public class Program
             "CS",
             "FDMR",
             "SFI",
-            "LSES"
+            "LS"
         };
 
     static void Main()
@@ -28,7 +28,7 @@ public class Program
 
         while (gatheringParams)
         {
-            Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS, SFI or LSES)");
+            Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS, SFI or LS)");
             string batchType = Console.ReadLine() ?? string.Empty;
             while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
             {

@@ -2,9 +2,9 @@
 using System.Text;
 
 namespace FFCPayBatchGenerator.Factory;
-public class LSESFactory : BaseBatchFactory
+public class LSFactory : BaseBatchFactory
 {
-    public LSESFactory(Request request) : base(request)
+    public LSFactory(Request request) : base(request)
     {
     }
 

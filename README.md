@@ -17,6 +17,7 @@ or:
 - Countryside Stewardship (CS)
 - Financial Discipline Mechanism Reimbursement (FDMR)
 - Sustainable Farming Incentive (SFI)
+- Lump Sums (LS)
 
 ## Running the application
 ### .NET SDK
@@ -59,7 +60,7 @@ The container can also be built with `docker-compose build`.
 The console will ask a series of question to determine the type of batch to generate and it's content.
 
 1. Type of batch 
-   Valid - `BPS`, `FDMR`, `CS`, `SFI`
+   Valid - `BPS`, `FDMR`, `CS`, `SFI`, `LS`
 
 2. Batch sequence
    Valid - any integer from `1` to `9999`, default `1`
@@ -73,10 +74,10 @@ The console will ask a series of question to determine the type of batch to gene
 5. Invoice request number, ie is first payment or post payment adjustment
    Valid - any integer, default `1`
 
-6. Invoice number for first invoice in batch.  All subseqent invoices will have this number incremented
+6. Invoice number for first invoice in batch.  All subseqUent invoices will have this number incremented
    Valid - any integer up to `9999999`, default `1`
 
-7. FRN for first invoice in batch.  All subseqent invoices will have this number incremented
+7. FRN for first invoice in batch.  All subseqUent invoices will have this number incremented
    Valid - any large integer up to `9999999999`, default `1000000001`
 
 8. Delivery body
