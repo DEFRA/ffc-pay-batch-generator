@@ -1,9 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FFCPayBatchGenerator.Factory
 {
@@ -17,6 +13,7 @@ namespace FFCPayBatchGenerator.Factory
                 "FDMR" => new FDMRFactory(request),
                 "CS" => new CSFactory(request),
                 "SFI" => new SFIFactory(request),
+                "LSES" => new LSESFactory(request),
                 _ => throw new ArgumentException("Invalid batch type")
             };
         }

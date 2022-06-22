@@ -1,5 +1,7 @@
-﻿namespace FFCPayBatchGenerator.Services;
-public interface IFileService
+﻿namespace FFCPayBatchGenerator.Services
 {
-    string Generate(string fileName, string content);
+    public interface IFileService
+    {
+        string Generate(string fileName, string content);
+    }
 }

@@ -14,7 +14,8 @@ namespace FFCPayBatchGenerator
             "BPS",
             "CS",
             "FDMR",
-            "SFI"
+            "SFI",
+            "LSES"
         };
 
         static void Main()
@@ -28,7 +29,7 @@ namespace FFCPayBatchGenerator
 
             while (gatheringParams)
             {
-                Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS or SFI)");
+                Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS, SFI or LSES)");
                 string batchType = Console.ReadLine() ?? string.Empty;
                 while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
                 {

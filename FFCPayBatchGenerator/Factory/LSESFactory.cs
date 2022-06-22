@@ -2,15 +2,15 @@
 using System.Text;
 
 namespace FFCPayBatchGenerator.Factory;
-public class SFIFactory : BaseBatchFactory
+public class LSESFactory : BaseBatchFactory
 {
-    public SFIFactory(Request request) : base(request)
+    public LSESFactory(Request request) : base(request)
     {
     }
 
     public override string GetFileName()
     {
-        return string.Format("{0}SITIELM{1}_AP_{2}.dat",
+        return string.Format("{0}SITILSES_{1}_AP_{2}.dat",
             pendingRename ? pendingPrefix : string.Empty,
             sequence.ToString("D4"),
             DateTime.Now.ToString("yyyyMMddHHmmssFFF"));
@@ -19,28 +19,27 @@ public class SFIFactory : BaseBatchFactory
     public override string GetContent()
     {
         StringBuilder sb = new();
-        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^SFIP^AP",
+        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^LSES^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,
             batchSize * invoiceValue,
-            sequence.ToString("D4")));
+            sequence));
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFI{0}^{1}^SFIP{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFIP^Q4",
-                invoiceNumber.ToString("D8"),
-                requestNumber.ToString("D2"),
-                invoiceNumber.ToString("D6"),
-                requestNumber == 1 ? 1 : 2,
+            sb.AppendLine(string.Format("H^LSES{0}^{1}^C{2}^{3}^{4}^{5}^{6}^GBP",
+                invoiceNumber.ToString("D7"),
+                requestNumber.ToString("D3"),
+                invoiceNumber.ToString("D7"),
                 frn,
+                requestNumber == 1 ? 1 : 2,
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80001^DRD10^SIP{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
-                invoiceNumber.ToString("D8"),
+            sb.AppendLine(string.Format("L^LSES{0}^{1}^{2}^10501^EGF00^{3}^1^G00 - Gross value of claim^{4}",
+                invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
-                frn.ToString("D12"),
                 deliveryBody,
                 new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
 
