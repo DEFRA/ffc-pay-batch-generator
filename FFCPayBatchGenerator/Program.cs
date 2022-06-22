@@ -188,7 +188,7 @@ public class Program
         Console.WriteLine("Create checksum file or leave blank for default? (no)");
         string checksum = Console.ReadLine() ?? string.Empty;
 
-        request.CreateChecksum = !string.IsNullOrEmpty(checksum) || checksum.ToUpper() == "YES" || checksum.ToUpper() == "Y" || checksum.ToUpper() == "TRUE";
+        request.CreateChecksum = IsYes(checksum);
     }
 
     private static void CaptureControlFiles()
@@ -196,7 +196,7 @@ public class Program
         Console.WriteLine("Create control files or leave blank for default? (no)");
         string control = Console.ReadLine() ?? string.Empty;
 
-        request.CreateControl = !string.IsNullOrEmpty(control) || control.ToUpper() == "YES" || control.ToUpper() == "Y" || control.ToUpper() == "TRUE";
+        request.CreateControl = IsYes(control);
     }
 
     private static void CapturePendingRename()
@@ -204,7 +204,7 @@ public class Program
         Console.WriteLine("Create file with pending file name? (no)");
         string rename = Console.ReadLine() ?? string.Empty;
 
-        request.PendingRename = !string.IsNullOrEmpty(rename) || rename.ToUpper() == "YES" || rename.ToUpper() == "Y" || rename.ToUpper() == "TRUE";
+        request.PendingRename = IsYes(rename);
     }
 
     private static void CreateBatchFile(Request request)
@@ -227,6 +227,11 @@ public class Program
                 fileService.Generate(Control.GetFileName(Checksum.GetFileName(batchPath)), string.Empty);
             }
         }
+    }
+
+    private static bool IsYes(string input)
+    {
+        return !string.IsNullOrEmpty(input) || input.ToUpper() == "YES" || input.ToUpper() == "Y" || input.ToUpper() == "TRUE";
     }
 
     private static void LogError(string message)
