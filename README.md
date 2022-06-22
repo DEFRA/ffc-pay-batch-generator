@@ -74,10 +74,10 @@ The console will ask a series of question to determine the type of batch to gene
 5. Invoice request number, ie is first payment or post payment adjustment
    Valid - any integer, default `1`
 
-6. Invoice number for first invoice in batch.  All subseqUent invoices will have this number incremented
+6. Invoice number for first invoice in batch.  All subsequent invoices will have this number incremented
    Valid - any integer up to `9999999`, default `1`
 
-7. FRN for first invoice in batch.  All subseqUent invoices will have this number incremented
+7. FRN for first invoice in batch.  All subsequent invoices will have this number incremented
    Valid - any large integer up to `9999999999`, default `1000000001`
 
 8. Delivery body
