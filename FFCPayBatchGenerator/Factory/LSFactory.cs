@@ -2,15 +2,15 @@
 using System.Text;
 
 namespace FFCPayBatchGenerator.Factory;
-public class BPSFactory : BaseBatchFactory
+public class LSFactory : BaseBatchFactory
 {
-    public BPSFactory(Request request) : base(request)
+    public LSFactory(Request request) : base(request)
     {
     }
 
     public override string GetFileName()
     {
-        return string.Format("{0}SITI_{1}_AP_{2}.dat",
+        return string.Format("{0}SITILSES{1}_AP_{2}.dat",
             pendingRename ? pendingPrefix : string.Empty,
             sequence.ToString("D4"),
             DateTime.Now.ToString("yyyyMMddHHmmssFFF"));
@@ -19,7 +19,7 @@ public class BPSFactory : BaseBatchFactory
     public override string GetContent()
     {
         StringBuilder sb = new();
-        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^SITI AGRI SYS^AP",
+        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^LSES^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,
             batchSize * invoiceValue,
@@ -27,7 +27,7 @@ public class BPSFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SITI{0}^{1}^C{2}^{3}^1^{4}^{5}^GBP",
+            sb.AppendLine(string.Format("H^LSES{0}^{1}^L{2}^{3}^1^{4}^{5}^GBP",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D3"),
                 invoiceNumber.ToString("D7"),
@@ -35,7 +35,7 @@ public class BPSFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SITI{0}^{1}^{2}^10501^EGF00^{3}^1^G00 - Gross value of claim^{4}",
+            sb.AppendLine(string.Format("L^LSES{0}^{1}^{2}^10570^DOM10^{3}^1^G00 - Gross value of claim^{4}",
                 invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,

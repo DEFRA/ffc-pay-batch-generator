@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FFCPayBatchGenerator.Factory;
 public class SFIFactory : BaseBatchFactory
@@ -21,7 +18,7 @@ public class SFIFactory : BaseBatchFactory
 
     public override string GetContent()
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^SFIP^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,

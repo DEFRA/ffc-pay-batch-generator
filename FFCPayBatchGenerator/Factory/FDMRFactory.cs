@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FFCPayBatchGenerator.Factory;
 public class FDMRFactory : BaseBatchFactory
@@ -21,7 +18,7 @@ public class FDMRFactory : BaseBatchFactory
 
     public override string GetContent()
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^FDMR^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,
@@ -54,7 +51,7 @@ public class FDMRFactory : BaseBatchFactory
         return sb.ToString();
     }
 
-    private int GetSchemeCode(int schemeYear)
+    private static int GetSchemeCode(int schemeYear)
     {
         return 10570 + (schemeYear % 10);
     }
