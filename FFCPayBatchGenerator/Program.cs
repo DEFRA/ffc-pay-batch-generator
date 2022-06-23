@@ -9,13 +9,13 @@ public class Program
     private static Request request = new("SFI");
 
     private readonly static List<string> batchTypes = new()
-        {
-            "BPS",
-            "CS",
-            "FDMR",
-            "SFI",
-            "LS"
-        };
+    {
+        "BPS",
+        "CS",
+        "FDMR",
+        "SFI",
+        "LS"
+    };
 
     static void Main()
     {
