@@ -27,7 +27,7 @@ public class LSFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^LSES{0}^{1}^C{2}^{3}^{4}^{5}^{6}^GBP",
+            sb.AppendLine(string.Format("H^LSES{0}^{1}^L{2}^{3}^{4}^{5}^{6}^GBP",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D3"),
                 invoiceNumber.ToString("D7"),
