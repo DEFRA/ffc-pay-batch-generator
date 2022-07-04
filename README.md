@@ -16,6 +16,7 @@ or:
 - Basic Payment Scheme (BPS)
 - Countryside Stewardship (CS)
 - Financial Discipline Mechanism Reimbursement (FDMR)
+- Sustainable Farming Incentive Pilot (SFIP)
 - Sustainable Farming Incentive (SFI)
 - Lump Sums (LS)
 
@@ -60,7 +61,7 @@ The container can also be built with `docker-compose build`.
 The console will ask a series of question to determine the type of batch to generate and it's content.
 
 1. Type of batch 
-   Valid - `BPS`, `FDMR`, `CS`, `SFI`, `LS`
+   Valid - `BPS`, `FDMR`, `CS`, `SFIP`, `SFI`, `LS`
 
 2. Batch sequence
    Valid - any integer from `1` to `9999`, default `1`
