@@ -10,7 +10,7 @@ public class SFIFactory : BaseBatchFactory
 
     public override string GetFileName()
     {
-        return string.Format("{0}SITIELM{1}_AP_{2}.dat",
+        return string.Format("{0}SITISFI{1}_AP_{2}.dat",
             pendingRename ? pendingPrefix : string.Empty,
             sequence.ToString("D4"),
             DateTime.Now.ToString("yyyyMMddHHmmssFFF"));
@@ -27,7 +27,7 @@ public class SFIFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFIP{0}^{1}^S{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFIP^Q4",
+            sb.AppendLine(string.Format("H^SFI{0}^{1}^S{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFIP^Q4",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 invoiceNumber.ToString("D7"),
@@ -36,7 +36,7 @@ public class SFIFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFIP{0}^{1}^{2}^80001^DRD10^SIP{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
+            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80001^DRD10^SIP{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
                 invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
