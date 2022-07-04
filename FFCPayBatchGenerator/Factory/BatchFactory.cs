@@ -11,6 +11,7 @@ public static class BatchFactory
             "BPS" => new BPSFactory(request),
             "FDMR" => new FDMRFactory(request),
             "CS" => new CSFactory(request),
+            "SFIP" => new SFIPFactory(request),
             "SFI" => new SFIFactory(request),
             "LS" => new LSFactory(request),
             _ => throw new ArgumentException("Invalid batch type")
