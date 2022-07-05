@@ -40,7 +40,7 @@ public class LSFactory : BaseBatchFactory
                 invoiceValue,
                 schemeYear,
                 deliveryBody,
-                new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
+                new DateTime(schemeYear, 11, 1).ToString("yyyy-MM-dd")));
 
             invoiceNumber++;
             frn++;
