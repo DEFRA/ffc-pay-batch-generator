@@ -27,20 +27,20 @@ public class SFIFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFI{0}^{1}^X{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
+            sb.AppendLine(string.Format("H^SFI{0}^{1}^{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
-                invoiceNumber.ToString("D7"),
+                frn.ToString("D8")[^8..],
                 requestNumber == 1 ? 1 : 2,
                 frn,
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80001^DRD10^SIP{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
+            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80101^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
                 invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
-                frn.ToString("D12"),
+                frn.ToString("D8")[^8..],
                 deliveryBody,
                 new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
 
