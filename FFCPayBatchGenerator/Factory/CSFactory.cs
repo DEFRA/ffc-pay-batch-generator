@@ -36,7 +36,7 @@ public class CSFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^CS{0}^{1}^{2}^5704A^ERD14^A{3}/MT^{4}^1^G00 - Gross value of claim^{5}^SOS273",
+            sb.AppendLine(string.Format("L^CS{0}^{1}^{2}^5704A^ERD14^A{3}/MT^{4}^N^1^G00 - Gross value of claim^{5}^SOS273",
                 invoiceNumber.ToString("D9"),
                 invoiceValue,
                 schemeYear,
