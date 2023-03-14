@@ -27,21 +27,19 @@ public class CSFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^CS{0}^{1}^A{2}^{3}^{4}^GBP^{5}^{6}^GBP",
+            sb.AppendLine(string.Format("H^CS{0}^{1}^A{2}^{3}^{4}^GBP^{5}^NE00^GBP",
                 invoiceNumber.ToString("D9"),
                 requestNumber.ToString("D3"),
                 invoiceNumber.ToString("D7"),
                 requestNumber == 1 ? 1 : 2,
                 frn,
-                invoiceValue,
-                deliveryBody));
+                invoiceValue));
 
-            sb.AppendLine(string.Format("L^CS{0}^{1}^{2}^5704A^ERD14^A{3}/MT^{4}^N^1^G00 - Gross value of claim^{5}^SOS273",
+            sb.AppendLine(string.Format("L^CS{0}^{1}^{2}^5704A^ERD14^A{3}/MT^NE00^N^1^G00 - Gross value of claim^{4}^SOS273",
                 invoiceNumber.ToString("D9"),
                 invoiceValue,
                 schemeYear,
                 frn.ToString("D11"),
-                deliveryBody,
                 new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
 
             invoiceNumber++;
