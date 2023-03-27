@@ -53,6 +53,15 @@ public class FDMRFactory : BaseBatchFactory
 
     private static int GetSchemeCode(int schemeYear)
     {
-        return 10570 + (schemeYear % 10);
+        return schemeYear switch
+        {
+            2015 => 10575,
+            2016 => 10576,
+            2017 => 10577,
+            2018 => 10578,
+            2019 => 10579,
+            2020 => 10580,
+            _ => 10580,
+        };
     }
 }
