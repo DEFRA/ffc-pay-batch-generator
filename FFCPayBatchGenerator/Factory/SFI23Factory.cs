@@ -27,7 +27,7 @@ public class SFI23Factory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFIA{0}^{1}^{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
+            sb.AppendLine(string.Format("H^SFIA{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 frn.ToString("D8")[^8..],
@@ -36,7 +36,7 @@ public class SFI23Factory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFIA{0}^{1}^{2}^80201^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
+            sb.AppendLine(string.Format("L^SFIA{0}^{1}^{2}^80201^DRD10^Z{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
                 invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
