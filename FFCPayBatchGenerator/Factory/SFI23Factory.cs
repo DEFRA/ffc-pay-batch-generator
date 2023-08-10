@@ -2,15 +2,15 @@
 using System.Text;
 
 namespace FFCPayBatchGenerator.Factory;
-public class SFIFactory : BaseBatchFactory
+public class SFI23Factory : BaseBatchFactory
 {
-    public SFIFactory(Request request) : base(request)
+    public SFI23Factory(Request request) : base(request)
     {
     }
 
     public override string GetFileName()
     {
-        return string.Format("{0}SITISFI{1}_AP_{2}.dat",
+        return string.Format("{0}SITISFIA{1}_AP_{2}.dat",
             pendingRename ? pendingPrefix : string.Empty,
             sequence.ToString("D4"),
             DateTime.Now.ToString("yyyyMMddHHmmssFFF"));
@@ -19,7 +19,7 @@ public class SFIFactory : BaseBatchFactory
     public override string GetContent()
     {
         StringBuilder sb = new();
-        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^SFI^AP",
+        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^SFIA^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,
             batchSize * invoiceValue,
@@ -27,8 +27,8 @@ public class SFIFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFI{0}^{1}^{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
-                invoiceNumber.ToString("D8"),
+            sb.AppendLine(string.Format("H^SFIA{0}^{1}^{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
+                invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 frn.ToString("D8")[^8..],
                 requestNumber == 1 ? 1 : 2,
@@ -36,8 +36,8 @@ public class SFIFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80101^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
-                invoiceNumber.ToString("D8"),
+            sb.AppendLine(string.Format("L^SFIA{0}^{1}^{2}^80201^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
+                invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
                 frn.ToString("D8")[^8..],

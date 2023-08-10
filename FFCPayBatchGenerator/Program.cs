@@ -15,6 +15,7 @@ public class Program
         "FDMR",
         "SFIP",
         "SFI",
+        "SFI23",
         "LS"
     };
 
