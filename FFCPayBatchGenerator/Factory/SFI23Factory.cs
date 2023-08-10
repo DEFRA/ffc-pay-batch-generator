@@ -27,7 +27,7 @@ public class SFI23Factory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SFIA{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFI^Q4",
+            sb.AppendLine(string.Format("H^SFIA{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^SFIA^Q4",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 frn.ToString("D8")[^8..],
