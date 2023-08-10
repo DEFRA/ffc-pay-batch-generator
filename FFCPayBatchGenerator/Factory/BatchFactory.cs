@@ -13,6 +13,7 @@ public static class BatchFactory
             "CS" => new CSFactory(request),
             "SFIP" => new SFIPFactory(request),
             "SFI" => new SFIFactory(request),
+            "SFI23" => new SFI23Factory(request),
             "LS" => new LSFactory(request),
             _ => throw new ArgumentException("Invalid batch type")
         };

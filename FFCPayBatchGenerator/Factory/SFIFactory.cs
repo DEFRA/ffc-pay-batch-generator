@@ -36,7 +36,7 @@ public class SFIFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80101^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS273",
+            sb.AppendLine(string.Format("L^SFI{0}^{1}^{2}^80101^DRD10^{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
                 invoiceNumber.ToString("D8"),
                 invoiceValue,
                 schemeYear,
