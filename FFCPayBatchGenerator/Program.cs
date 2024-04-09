@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 namespace FFCPayBatchGenerator;
-public class Program
+public static class Program
 {
     private static Request request = new("SFI");
 
