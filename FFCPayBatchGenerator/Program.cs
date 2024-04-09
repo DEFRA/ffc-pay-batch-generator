@@ -23,7 +23,7 @@ public class Program
     {
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("Payment Batch Generator");
-        Console.WriteLine("Future Farming and Countryside programme {0}", DateTime.Now.Year);
+        Console.WriteLine("Farming and Countryside programme {0}", DateTime.Now.Year);
         Console.ResetColor();
 
         bool gatheringParams = true;
