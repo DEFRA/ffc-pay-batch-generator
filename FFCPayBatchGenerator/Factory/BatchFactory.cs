@@ -14,7 +14,9 @@ public static class BatchFactory
             "SFIP" => new SFIPFactory(request),
             "SFI" => new SFIFactory(request),
             "SFI23" => new SFI23Factory(request),
+            "ESFIO" => new ESFIOFactory(request),
             "LS" => new LSFactory(request),
+            "Delinked" => new DelinkedFactory(request),
             _ => throw new ArgumentException("Invalid batch type")
         };
     }
