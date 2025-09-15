@@ -41,7 +41,7 @@ public class SITICOHTCFactory : BaseBatchFactory
                 invoiceValue,
                 schemeYear,
                 frn.ToString("D8")[^8..],
-                deliveryBody;
+                deliveryBody));
 
             invoiceNumber++;
             frn++;
