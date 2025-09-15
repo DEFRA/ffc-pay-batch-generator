@@ -27,7 +27,7 @@ public class SITICOHTCFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^SITICOHTC{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^SITICOHTC^Q4",
+            sb.AppendLine(string.Format("H^SITICOHTC{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^SITICOHTC^",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 frn.ToString("D8")[^8..],
@@ -36,13 +36,12 @@ public class SITICOHTCFactory : BaseBatchFactory
                 invoiceValue,
                 deliveryBody));
 
-            sb.AppendLine(string.Format("L^SITICOHTC{0}^{1}^{2}^80201^DRD10^Z{3}^{4}^N^1^G00 - Gross value of claim^{5}^{5}^SOS270",
+            sb.AppendLine(string.Format("L^SITICOHTC{0}^{1}^{2}^80201^DRD10^Z{3}^{4}^N^1^G00 - Gross value of claim^SOS270",
                 invoiceNumber.ToString("D7"),
                 invoiceValue,
                 schemeYear,
                 frn.ToString("D8")[^8..],
-                deliveryBody,
-                new DateTime(schemeYear, 12, 1).ToString("yyyy-MM-dd")));
+                deliveryBody;
 
             invoiceNumber++;
             frn++;
