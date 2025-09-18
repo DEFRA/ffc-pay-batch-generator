@@ -19,7 +19,7 @@ public class SITICOHTRFactory : BaseBatchFactory
     public override string GetContent()
     {
         StringBuilder sb = new();
-        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^ESFIO^AP",
+        sb.AppendLine(string.Format("B^{0}^{1}^{2}^{3}^COHTR^AP",
             DateTime.Now.ToString("yyyy-MM-dd"),
             batchSize,
             batchSize * invoiceValue,
@@ -27,7 +27,7 @@ public class SITICOHTRFactory : BaseBatchFactory
 
         for (int i = 0; i < batchSize; i++)
         {
-            sb.AppendLine(string.Format("H^ESFIO{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^ESFIO^Q4",
+            sb.AppendLine(string.Format("H^ESFIO{0}^{1}^Z{2}^{3}^{4}^GBP^{5}^{6}^GBP^COHTR^Q4",
                 invoiceNumber.ToString("D7"),
                 requestNumber.ToString("D2"),
                 frn.ToString("D8")[^8..],
