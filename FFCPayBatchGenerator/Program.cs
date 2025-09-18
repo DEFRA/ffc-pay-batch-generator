@@ -18,7 +18,9 @@ public static class Program
         "SFI23",
         "ESFIO",
         "LS",
-        "Delinked"
+        "Delinked",
+        "SITICOHTC",
+        "SITICOHTR"
     };
 
     static void Main()
@@ -32,7 +34,7 @@ public static class Program
 
         while (gatheringParams)
         {
-            Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS, SFIP, SFI, SFI23, ESFIO, LS or Delinked)");
+            Console.WriteLine("Enter payment batch to generate (BPS, FDMR, CS, SFIP, SFI, SFI23, ESFIO, LS, Delinked, SITICOHTC or SITICOHTR)");
             string batchType = Console.ReadLine() ?? string.Empty;
             while (string.IsNullOrEmpty(batchType) || !batchTypes.Contains(batchType.ToUpper()))
             {

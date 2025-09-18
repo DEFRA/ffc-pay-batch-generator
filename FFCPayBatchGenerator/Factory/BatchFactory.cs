@@ -17,6 +17,8 @@ public static class BatchFactory
             "ESFIO" => new ESFIOFactory(request),
             "LS" => new LSFactory(request),
             "Delinked" => new DelinkedFactory(request),
+            "SITICOHTC" => new SITICOHTCFactory(request),
+            "SITICOHTR" => new SITICOHTRFactory(request),
             _ => throw new ArgumentException("Invalid batch type")
         };
     }
