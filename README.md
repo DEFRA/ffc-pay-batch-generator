@@ -19,6 +19,12 @@ or:
 - Sustainable Farming Incentive Pilot (SFIP)
 - Sustainable Farming Incentive (SFI)
 - Lump Sums (LS)
+- Delinked Payments (DELINKED)
+- Sustainable Farming Incentive 23 (SFI 23)
+- Sustainable Farming Incentive 26 (SFI 26)
+- Expanded SFI Offer (ESFIO)
+- Combined Offer Higher Tier Capital (COHTC)
+- Combined Offer Higher Tier Revenue (COHTR)
 
 ## Running the application
 ### .NET SDK
