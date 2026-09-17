@@ -19,6 +19,7 @@ public static class BatchFactory
             "Delinked" => new DelinkedFactory(request),
             "SITICOHTC" => new SITICOHTCFactory(request),
             "SITICOHTR" => new SITICOHTRFactory(request),
+            "SFI26" => new SFI26Factory(request),
             _ => throw new ArgumentException("Invalid batch type")
         };
     }
